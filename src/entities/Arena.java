@@ -29,6 +29,8 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 	private Map map;
 
 	private HashMap<Integer, Player> players;
+	
+	private int playerID;
 
 	public Arena() throws IOException {
 		super();
@@ -174,7 +176,7 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 			move(0, 1);
 		}
 		if (k == KeyEvent.VK_SPACE) {
-			/*try {
+			try {
 				if (counter > 30) {
 					counter = 0;
 					shoot(0);
@@ -182,15 +184,54 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}*/
-			
-			try {
-				addNewPlayer(1);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
+
 		}
+
+		if (players.size() > 0) {
+
+			if (k == KeyEvent.VK_P) {
+				try {
+					addNewPlayer(1);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+			if (k == KeyEvent.VK_A) {
+				move(1, 2);
+				players.get(1).setFacing(2);
+			}
+			if (k == KeyEvent.VK_D) {
+				players.get(1).setFacing(3);
+				move(1, 3);
+
+			}
+			if (k == KeyEvent.VK_W) {
+				players.get(1).setFacing(4);
+				move(1, 4);
+			}
+			if (k == KeyEvent.VK_S) {
+				players.get(1).setFacing(1);
+				move(1, 1);
+			}
+			
+			if (k == KeyEvent.VK_SHIFT) {
+				try {
+					if (counter > 30) {
+						counter = 0;
+						shoot(1);
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+
+		}
+
 	}
 
 	@Override

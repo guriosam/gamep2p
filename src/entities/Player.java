@@ -34,8 +34,8 @@ public class Player {
 		life = 3;
 		this.setId(id);
 		shoots = new ArrayList<>();
-		posX = 10;
-		posY = 10;
+		posX = 10*(id + 1);
+		posY = 10*(id + 1);
 		health = 30;
 		skin = new Skin(id);
 		counter = 0;
