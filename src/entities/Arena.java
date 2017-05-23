@@ -93,18 +93,23 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 
 					for (Shoot s : p.shoots) {
 						for (Integer id2 : players.keySet()) {
-							if (s.posX >= players.get(id2).posX && s.posX <= (players.get(id2).posX + 32)) {
-								if (players.get(id2) != p) {
-									players.get(id2).damage();
-									removeShoot.add(s);
+							
+							if (s.posX >= players.get(id2).posX - 2 && s.posX <= (players.get(id2).posX)) {
+								if (s.posY == players.get(id2).posY) {
+									if (players.get(id2) != p) {
+										players.get(id2).damage();
+										removeShoot.add(s);
+									}
 								}
 
 							}
 
-							if (s.posY >= players.get(id2).posY && s.posY <= (players.get(id2).posY + 32)) {
-								if (players.get(id2) != p) {
-									players.get(id2).damage();
-									removeShoot.add(s);
+							if (s.posY >= players.get(id2).posY - 2 && s.posY <= (players.get(id2).posY)) {
+								if (s.posX == players.get(id2).posX) {
+									if (players.get(id2) != p) {
+										players.get(id2).damage();
+										removeShoot.add(s);
+									}
 								}
 							}
 
