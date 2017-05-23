@@ -174,11 +174,18 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 			move(0, 1);
 		}
 		if (k == KeyEvent.VK_SPACE) {
-			try {
+			/*try {
 				if (counter > 30) {
 					counter = 0;
 					shoot(0);
 				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}*/
+			
+			try {
+				addNewPlayer(1);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
