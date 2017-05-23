@@ -29,7 +29,7 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 	private Map map;
 
 	private HashMap<Integer, Player> players;
-	
+
 	private int playerID;
 
 	public Arena() throws IOException {
@@ -82,6 +82,7 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 		while (running) {
 
 			List<Player> deadPlayers = new ArrayList<>();
+			List<Shoot> removeShoot = new ArrayList<>();
 
 			update();
 			try {
@@ -92,15 +93,30 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 
 					for (Shoot s : p.shoots) {
 						for (Integer id2 : players.keySet()) {
-							if (s.posX == players.get(id2).posX || s.posY == players.get(id2).posY) {
+							if (s.posX >= players.get(id2).posX && s.posX <= (players.get(id2).posX + 32)) {
 								if (players.get(id2) != p) {
 									players.get(id2).damage();
+									removeShoot.add(s);
+								}
+
+							}
+
+							if (s.posY >= players.get(id2).posY && s.posY <= (players.get(id2).posY + 32)) {
+								if (players.get(id2) != p) {
+									players.get(id2).damage();
+									removeShoot.add(s);
 								}
 							}
 
 							if (players.get(id2).isDead()) {
 								deadPlayers.add(players.get(id2));
 							}
+						}
+					}
+
+					for (Shoot s : removeShoot) {
+						if (p.shoots.contains(s)) {
+							p.shoots.remove(s);
 						}
 					}
 				}
@@ -216,7 +232,7 @@ public class Arena extends JPanel implements Runnable, KeyListener {
 				players.get(1).setFacing(1);
 				move(1, 1);
 			}
-			
+
 			if (k == KeyEvent.VK_SHIFT) {
 				try {
 					if (counter > 30) {
